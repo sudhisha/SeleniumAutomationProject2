@@ -2,6 +2,7 @@ package com.seleniumAutomation.Pages;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.seleniumAutomation.Base.AutomationBase;
 import org.openqa.selenium.By;
@@ -12,7 +13,6 @@ import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 
 
 public class Products extends AutomationBase {
@@ -98,8 +98,9 @@ public class Products extends AutomationBase {
 	By pwd = By.name("password");
 	By logemail = RelativeLocator.with(By.tagName("input")).above(pwd);
 	By loginButton = By.xpath(".//button[text()=\"Login\"]");
-//	By catgryhead = By.xpath(".//a[text()=\" Logged in as \"]");
-//	By login_username = By.xpath(".//b[text()=\"Sudhi\"]");
+	By poloBrand = By.xpath(".//a[text()=\"Polo\"]");
+	By hmBrand = By.xpath(".//a[text()=\"H&M\"]");
+	By brandsHead = By.xpath(".//h2[text()=\"Brands\"]");
 	By xButton = By.xpath(".//a[@class=\"cart_quantity_delete\" and @data-product-id=\"1\"]");
 	By catgry = By.xpath(".//h2[text()=\"Category\"]");
 	By women = By.xpath(".//a[@href=\"#Women\"]");
@@ -107,8 +108,17 @@ public class Products extends AutomationBase {
 	By catgryhead = By.xpath(".//h2[text()=\"Women - Dress Products\"]");
 	By men = By.xpath(".//a[@href=\"#Men\"]");
 	By tshirt = By.xpath(".//a[@href=\"/category_products/3\" and text()=\"Tshirts \"]");
-	
-	
+	By brandspdts = By.xpath(".//h2[text()=\"Brand - Polo Products\"]");
+	By brandspdts1 = By.xpath(".//h2[text()=\"Brand - H&M Products\"]");
+	By prdlist = By.xpath("//div[@class='productinfo text-center']/p");
+	By writeReview = By.xpath(".//a[text()=\"Write Your Review\"]");
+	By rev_name = By.id("name");
+	By rev_email = By.id("email");
+	By review = By.id("review");
+	By button_review = By.id("button-review");
+	By rev_msg = By.xpath(".//span[text()=\"Thank you for your review.\"]");
+//	By rev_name = By.id("name");
+
 	public void closeAdIfPresent() {
         try {
             // Wait for the ad close button to appear
@@ -121,7 +131,7 @@ public class Products extends AutomationBase {
         }
     }
 	public void clickPrdLink() {
-		WebElement adCloseButton = new WebDriverWait(driver, Duration.ofSeconds(5))
+		WebElement adCloseButton = new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(products));
         adCloseButton.click();
 //		driver.findElement(products).click();
@@ -382,6 +392,67 @@ public class Products extends AutomationBase {
 	public boolean verifyCategoryheading2() {
 		return driver.findElement(catgryhead).isDisplayed();
 	}
+	public boolean verifyBrandsheading() {
+		return driver.findElement(brandsHead).isDisplayed();
+	}
+	public void clickpolo() {
+		driver.findElement(poloBrand).click();;
+	}
+	public void clickHM() {
+		driver.findElement(hmBrand).click();;
+	}
+	public String verifyBrandspage() {
+		return driver.getCurrentUrl();
+	}
+	public boolean verifyBrandsproducts() {
+		return driver.findElement(brandspdts).isDisplayed();
+	}
+	public boolean verifyBrandsproducts1() {
+		return driver.findElement(brandspdts1).isDisplayed();
+	}
+	public void enterSearchInput(String input) {
+		driver.findElement(search).sendKeys(input);;
+	}
+	public void verifyProductsInPage(String pdt,String pdt1) {
+		if (driver.findElements(prdlist).isEmpty()) {
+			System.out.println("No products are available based on search results");
+		}
+		else {
+			List<WebElement> pl = driver.findElements(prdlist);
+			for (WebElement p : pl) {
+				String pd = p.getText();
+				System.out.println("pd - " + pd);
+				if (pd.contains(pdt) || pd.contains(pdt1)) {
+					System.out.println("Products are displayed based on the searched results");
+					By addToCartSearch = RelativeLocator.with(By.tagName("a")).below(p);
+					driver.findElement(addToCartSearch).click();
+					clickContinue();
+				}
+				else{
+					System.out.println("No matching keywords!");
+				}
+			}
+		}
+	}
+	public boolean verifyWriteReviewHead() {
+		return driver.findElement(writeReview).isDisplayed();
+	}
+	public void EnterReviewName(String name) {
+		driver.findElement(rev_name).sendKeys(name);
+	}
+	public void EnterReviewEmail(String email) {
+		driver.findElement(rev_email).sendKeys(email);
+	}
+	public void EnterReviewReview(String rev) {
+		driver.findElement(review).sendKeys(rev);
+	}
+	public void clickReviewButton() {
+		driver.findElement(button_review).click();
+	}
+	public boolean verifySuccessReviewMsg() {
+		return driver.findElement(rev_msg).isDisplayed();
+	}
+
 }
 
 

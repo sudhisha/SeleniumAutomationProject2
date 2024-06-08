@@ -1,8 +1,10 @@
 package com.seleniumAutomation.testcases;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.seleniumAutomation.Pages.Products;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -175,7 +177,50 @@ public class ProductsTest {
 		pd.clicktshirt();
 		Assert.assertEquals(pd.verifyCategoryheading2(),"https://automationexercise.com/category_products/3");
 	}
-	
+
+	@Test
+	public void view_Cart_BrandProducts() {
+		pd.clickPrdLink();
+		Assert.assertTrue(pd.verifyBrandsheading());
+		pd.clickpolo();
+		Assert.assertTrue(pd.verifyBrandsproducts());
+		Assert.assertTrue(pd.verifyBrandspage().contains("brand_products"));
+		pd.clickHM();
+		Assert.assertTrue(pd.verifyBrandspage().contains("brand_products"));
+		Assert.assertTrue(pd.verifyBrandsproducts1());
+	}
+
+	@Test
+	public void Search_Products_and_Verify_Cart_After_Login() {
+		pd.clickPrdLink();
+		String prdct = "shirt";
+		String prdct1 = "Shirt";
+		Assert.assertEquals(pd.verifyBrandspage(),"https://automationexercise.com/products");
+		pd.enterSearchInput(prdct);
+		pd.click_search();
+		Assert.assertTrue(pd.verifySearched_Products());
+		pd.verifyProductsInPage(prdct,prdct1);
+		pd.clickCart();
+		pd.clickSignUpLink();
+		pd.enterlogEmail("nidhi123@gmail.com");
+		pd.enterPwd("nidhi123");
+		pd.clickLoginButton();
+		pd.clickCart();
+	}
+
+	@Test
+	public void add_review_Products() {
+		pd.clickPrdLink();
+		Assert.assertEquals(pd.verifyBrandspage(),"https://automationexercise.com/products");
+		pd.clickViewPdt();
+		Assert.assertTrue(pd.verifyWriteReviewHead());
+		pd.EnterReviewName("Nidhi");
+		pd.EnterReviewEmail("nidhi123@gmail.com");
+		pd.EnterReviewReview("Good Product...");
+		pd.clickReviewButton();
+		Assert.assertTrue(pd.verifySuccessReviewMsg());
+	}
+
 	@AfterMethod
 	public void closeDriver() {
 		pd.tearDown();

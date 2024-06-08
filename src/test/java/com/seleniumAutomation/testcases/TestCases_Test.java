@@ -21,6 +21,7 @@ public class TestCases_Test {
 	@Test
 	public void verifyTestCasePage() {
 		tp.clickTestCases();
+		System.out.println("tp.getTestCasesPage() - "+tp.getTestCasesPage());
 		Assert.assertTrue(tp.getTestCasesPage().contains("test_cases"));
 	}
 	
