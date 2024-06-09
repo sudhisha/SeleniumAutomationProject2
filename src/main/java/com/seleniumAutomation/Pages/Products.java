@@ -60,6 +60,7 @@ public class Products extends AutomationBase {
 	By email = RelativeLocator.with(By.tagName("input")).below(name);
 	By signUpButton = By.xpath(".//button[text()=\"Signup\"]");
 	By actTitle = By.id("id_gender2");
+	By actTitle1 = By.id("id_gender1");
 	By actName = By.name("name");
 	By actEmail = By.name("email");
 	By actpswd = By.name("password");
@@ -118,11 +119,13 @@ public class Products extends AutomationBase {
 	By review = By.id("review");
 	By button_review = By.id("button-review");
 	By rev_msg = By.xpath(".//span[text()=\"Thank you for your review.\"]");
-	By rec_items = By.xpath(".//h2[text()=\"recommended items\"]");
-//	By rec_addtocart = RelativeLocator.with(By.xpath(".//a[text()=\"Add to cart\"]")).below(rec_items);
-//	By rec_viewcart = By.xpath(".//u[text()=\"View Cart\"]");
-//	By rec_addtocart_pname = RelativeLocator.with(By.tagName("p")).below(rec_items);
-//	By rec_viewcart_pname = By.xpath(".//td[@class=\"cart_description\"]/h4/a");
+//	By rec_items = By.xpath(".//h2[text()=\"recommended items\"]");
+//	By deladd = By.xpath("//h3[text()='Your delivery address']");
+//	By billadd = By.xpath("//h3[text()='Your billing address']");
+	By deladdname = By.xpath("(.//li[@class=\"address_firstname address_lastname\"])[1]");
+	By deladdad1 = By.xpath("(.//li[@class=\"address_address1 address_address2\"])[2]");
+	By billaddname = By.xpath("(.//li[@class=\"address_firstname address_lastname\"])[2]");
+	By billaddad1 = By.xpath("(.//li[@class=\"address_address1 address_address2\"])[5]");
 
 	public void closeAdIfPresent() {
         try {
@@ -303,6 +306,35 @@ public class Products extends AutomationBase {
 		}
 		return flag;	
 	}
+	public void fillDetails1() {
+		driver.findElement(actTitle1).click();
+		driver.findElement(actpswd).sendKeys("nidhi123");
+		WebElement add = driver.findElement(actDobDay);
+		Select s = new Select(add);
+		s.selectByValue("1");
+		WebElement amm = driver.findElement(actDobMonth);
+		Select s1 = new Select(amm);
+		s1.selectByValue("3");
+		WebElement ayy = driver.findElement(actDobYear);
+		Select s2 = new Select(ayy);
+		s2.selectByValue("1996");
+		driver.findElement(newsletter).click();
+		driver.findElement(optin).click();
+		driver.findElement(fname).sendKeys("nidhi");
+		driver.findElement(lname).sendKeys("p");
+		driver.findElement(cmpny).sendKeys("meesho");
+		driver.findElement(address).sendKeys("chennai");
+		driver.findElement(address2).sendKeys("thamilnadu");
+		driver.findElement(cntry).sendKeys("india");
+		driver.findElement(state).sendKeys("thamilnadu");
+		driver.findElement(city).sendKeys("chennai");
+		driver.findElement(zip).sendKeys("565434");
+		driver.findElement(phone).sendKeys("9878909890");
+		driver.findElement(createbutton).click();
+	}
+	public boolean verifyAccountCreated() {
+		return driver.findElement(sucmsg).isDisplayed();
+	}
 	public void enterDesc() {
 		driver.findElement(desc).click();
 	}
@@ -351,6 +383,9 @@ public class Products extends AutomationBase {
 	public void clickContinueAccout() {
 		driver.findElement(cntnue).click();
 	}
+	public boolean verifyLoggedIn1() {
+		return driver.findElement(By.xpath("//a[text()=' Logged in as ']")).isDisplayed();
+	}
 	public boolean verifyLoggedIn() {
 		boolean flag = false;
 		String uname = driver.findElement(username).getText();
@@ -360,6 +395,15 @@ public class Products extends AutomationBase {
 			}
 		}
 		return flag;
+	}
+	public void prdAddCart() {
+		driver.findElement(By.xpath("//a[text()=' Products']")).click();
+		driver.findElement(By.xpath("(//a[text()='Add to cart'])[1]")).click();
+		driver.findElement(By.xpath("//button[text()='Continue Shopping']")).click();
+		driver.findElement(By.xpath("(//a[text()='Add to cart'])[3]")).click();
+	}
+	public boolean verifyCart() {
+		return driver.findElement(By.xpath("//li[text()='Shopping Cart']")).isDisplayed();
 	}
 	public void enterPwd(String pswd) {
 		driver.findElement(pwd).sendKeys(pswd);
@@ -461,7 +505,18 @@ public class Products extends AutomationBase {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
 	}
-
+	public String verifydeliveryaddressName() {
+		return driver.findElement(deladdname).getText();
+	}
+	public String verifydeliveryaddressAdd1() {
+		return driver.findElement(deladdad1).getText();
+	}
+	public String verifybillingaddressName() {
+		return driver.findElement(billaddname).getText();
+	}
+	public String verifybillingaddressAdd1() {
+		return driver.findElement(billaddad1).getText();
+	}
 
 }
 

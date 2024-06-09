@@ -223,15 +223,36 @@ public class ProductsTest {
 		assertTrue(pd.verifySuccessReviewMsg());
 	}
 
-
-
-
+	@Test
+	public void verifyAddressDetailsInCheckoutPage(){
+		pd.clickSignUpLink();
+		pd.enterName("Nidhin");
+		pd.enterEmail("nidhinp123@gmail.com");
+		pd.clickSignUpButton();
+		pd.fillDetails1();
+		assertTrue(pd.verifyAccountCreated(), "Account creation message not visible");
+		pd.clickContinueAccout();
+		assertTrue(pd.verifyLoggedIn1(), "Logged in as username message not visible");
+		pd.prdAddCart();
+		pd.clickViewCart();
+		assertTrue(pd.verifyCart(), "Cart page is not displayed");
+		pd.clickProceedToCheckOut();
+		assertTrue(pd.verifydeliveryaddressName().contains("Mr. nidhi p"), "Delivery address name is incorrect");
+		assertTrue(pd.verifydeliveryaddressAdd1().contains("chennai"), "Delivery address line 1 is incorrect");
+		assertTrue(pd.verifybillingaddressName().contains("Mr. nidhi p"), "Billing address name is incorrect");
+		assertTrue(pd.verifybillingaddressAdd1().contains("chennai"), "Billing address line 1 is incorrect");
+		pd.clickdelAccount();
+		assertTrue(pd.verifyDelMsg(), "Account deletion message not visible");
+		pd.clickdelAccountContinue();
+	}
 
 	@AfterMethod
 	public void closeDriver() {
 		pd.tearDown();
 	}
 }
+
+
 
 
 
