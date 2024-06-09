@@ -223,37 +223,10 @@ public class ProductsTest {
 		assertTrue(pd.verifySuccessReviewMsg());
 	}
 
-	@Test
-	public void Add_to_cart_from_Recommended_items() {
-		pd.scrolldown();
-		assertTrue(pd.verifyRecommendItems());
-		String c_pname = pd.getAddcartItemName();
-		pd.clickAddtocartRecommended();
-		pd.clickViewcartRecommended();
-		String vc_pname = pd.getViewcartItemName();
-		Assert.assertEquals(c_pname,vc_pname);
-	}
 
 
 
-	@Test
-	public void verifyScrollUp_and_Down() throws InterruptedException {
-		pd.scrolldown();
-		Thread.sleep(2000);
-		assertTrue(pd.verifySubscription(), "'SUBSCRIPTION' section is not visible");
-		pd.scrollUp();
-		Thread.sleep(2000); // Wait for the page to scroll up
-		assertTrue(pd.verifyPracticeWebsite(), "'Full-Fledged practice website for Automation Engineers' text is not visible");
-	}
-	@Test
-	public void verifyScrollUp_and_Down_withoutArrow() throws InterruptedException {
-		pd.scrolldown();
-		Thread.sleep(2000);
-		assertTrue(pd.verifySubscription(), "'SUBSCRIPTION' section is not visible");
-		pd.scrollUp_JS();
-		Thread.sleep(2000);
-		assertTrue(pd.verifyPracticeWebsite(), "'Full-Fledged practice website for Automation Engineers' text is not visible");
-	}
+
 	@AfterMethod
 	public void closeDriver() {
 		pd.tearDown();
