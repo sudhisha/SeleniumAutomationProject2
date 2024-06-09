@@ -246,6 +246,41 @@ public class ProductsTest {
 		pd.clickdelAccountContinue();
 	}
 
+	@Test
+	public void download_Invoice_after_purchase_order() throws InterruptedException {
+		pd.prdAddCart();
+		pd.clickViewCart();
+		assertTrue(pd.verifyCart(), "Cart page is not displayed");
+		pd.clickProceedToCheckOut();
+		pd.clickRegLog();
+		pd.enterName("Nidhin");
+		pd.enterEmail("nidhinp123@gmail.com");
+		pd.clickSignUpButton();
+		pd.fillDetails1();
+		assertTrue(pd.verifyAccountCreated(), "Account creation message not visible");
+		Thread.sleep(2000);
+		pd.clickContinueAccout();
+		assertTrue(pd.verifyLoggedIn1(), "Logged in as username message not visible");
+		pd.clickCart();
+		pd.clickProceedToCheckOut();
+		pd.verifyaddressdetails();
+		pd.verifyreviewyourorder();
+		pd.enterDesc();
+		pd.clickPlaceOrder();
+		pd.enternameoncard("Nidhin");
+		pd.entercardno("321456786709");
+		pd.entercvc("999");
+		pd.enterexpmm("09");
+		pd.enterexpyy("2026");
+		pd.clickPlaceOrderButton();
+		pd.click_Download_Invoice();
+		Thread.sleep(5000);
+		pd.clickContinueDI();
+		pd.clickdelAccount();
+		pd.verifyDelMsg();
+		pd.clickdelAccountContinue();
+	}
+
 	@AfterMethod
 	public void closeDriver() {
 		pd.tearDown();

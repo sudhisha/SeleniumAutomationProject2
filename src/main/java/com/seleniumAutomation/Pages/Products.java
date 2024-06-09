@@ -61,8 +61,8 @@ public class Products extends AutomationBase {
 	By signUpButton = By.xpath(".//button[text()=\"Signup\"]");
 	By actTitle = By.id("id_gender2");
 	By actTitle1 = By.id("id_gender1");
-	By actName = By.name("name");
-	By actEmail = By.name("email");
+	By addressdetails = By.xpath(".//h2[text()=\"Address Details\"]");
+	By reviewyourorder = By.xpath(".//h2[text()=\"Review Your Order\"]");
 	By actpswd = By.name("password");
 	By actDobDay = By.name("days");
 	By actDobMonth = By.name("months");
@@ -119,8 +119,8 @@ public class Products extends AutomationBase {
 	By review = By.id("review");
 	By button_review = By.id("button-review");
 	By rev_msg = By.xpath(".//span[text()=\"Thank you for your review.\"]");
-//	By rec_items = By.xpath(".//h2[text()=\"recommended items\"]");
-//	By deladd = By.xpath("//h3[text()='Your delivery address']");
+	By download_Invoice = By.linkText("Download Invoice");
+	By continueDI = By.linkText("Continue");
 //	By billadd = By.xpath("//h3[text()='Your billing address']");
 	By deladdname = By.xpath("(.//li[@class=\"address_firstname address_lastname\"])[1]");
 	By deladdad1 = By.xpath("(.//li[@class=\"address_address1 address_address2\"])[2]");
@@ -381,7 +381,10 @@ public class Products extends AutomationBase {
 		return driver.findElement(sucmsg).isDisplayed();
 	}
 	public void clickContinueAccout() {
-		driver.findElement(cntnue).click();
+		WebElement adCloseButton = new WebDriverWait(driver, Duration.ofSeconds(5))
+				.until(ExpectedConditions.elementToBeClickable(cntnue));
+		adCloseButton.click();
+//		driver.findElement(cntnue).click();
 	}
 	public boolean verifyLoggedIn1() {
 		return driver.findElement(By.xpath("//a[text()=' Logged in as ']")).isDisplayed();
@@ -517,7 +520,23 @@ public class Products extends AutomationBase {
 	public String verifybillingaddressAdd1() {
 		return driver.findElement(billaddad1).getText();
 	}
-
+	public boolean verifyaddressdetails() {
+		return driver.findElement(addressdetails).isDisplayed();
+	}
+	public boolean verifyreviewyourorder() {
+		return driver.findElement(reviewyourorder).isDisplayed();
+	}
+	public void click_Download_Invoice(){
+		driver.findElement(download_Invoice).click();
+	}
+//	public boolean verify_SuccessMsg1() {
+//		By suc_msg = By.id("success_message");
+//		By smsg = RelativeLocator.with(By.tagName("div")).below(driver.findElement(suc_msg));
+//		return driver.findElement(smsg).isDisplayed();
+//	}
+	public void clickContinueDI(){
+		driver.findElement(continueDI).click();
+	}
 }
 
 
