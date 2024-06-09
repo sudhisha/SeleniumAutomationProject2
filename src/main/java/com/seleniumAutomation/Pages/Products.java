@@ -177,54 +177,53 @@ public class Products extends AutomationBase {
 	public boolean verifySearched_Products() {
 		return driver.findElement(Searched_Products).isDisplayed();
 	}
-	public ArrayList<String> click_firstProduct() {
-		String fname = driver.findElement(fpname).getText();
-		String fprice = driver.findElement(fpprice).getText();
+	public void click_firstProduct() {
 		Actions act = new Actions(driver);
 		act.moveToElement(driver.findElement(frstPrd));
 		driver.findElement(addToCartButton).click();
-		ArrayList<String> ar2 = new ArrayList<String>();
-		ar2.add(fname);
-		ar2.add(fprice);
-		return ar2;
 	}
 	public void clickContinue() {
 		driver.findElement(cntueshop).click();
 	}
-	public ArrayList<String> click_secondProduct() {
-		String sname = driver.findElement(spname).getText();
-		String sprice = driver.findElement(spprice).getText();
+	public void click_secondProduct() {
 		Actions act = new Actions(driver);
 		act.moveToElement(driver.findElement(secPrd));
 		driver.findElement(addToCartButton1).click();
-		ArrayList<String> ar1 = new ArrayList<String>();
-		ar1.add(sname);
-		ar1.add(sprice);
-		return ar1;
 	}
 	public void viewCart() {
 		driver.findElement(viewCart).click();
 	}
-	public ArrayList<String> verifyCartProducts() {
-		String fname1 = driver.findElement(fpname1).getText();
-		String sname1 = driver.findElement(spname1).getText();
-		String sprice1 = driver.findElement(spprice1).getText();
-		String sqty = driver.findElement(spqty).getText();
-		String stotal = driver.findElement(sptotal).getText();
-		String fprice1 = driver.findElement(fpprice1).getText();
-		String fqty = driver.findElement(fpqty).getText();
-		String ftotal = driver.findElement(fptotal).getText();
-		ArrayList<String> ar = new ArrayList<String>();
-		ar.add(fname1);//0
-		ar.add(sname1);//1
-		ar.add(sprice1);//2
-		ar.add(sqty);//3
-		ar.add(stotal);//4
-		ar.add(fprice1);//5
-		ar.add(fqty);//6
-		ar.add(ftotal);//7
-		return ar;
+	public boolean verifyCartProducts1() {
+		return driver.findElement(By.xpath("(//td[@class='cart_product'])[1]")).isDisplayed();
 	}
+	public boolean verifyCartProducts2() {
+		return driver.findElement(By.xpath("(//td[@class='cart_product'])[2]")).isDisplayed();
+	}
+	public String verifyCartProducts3() {
+		String firstProductPrice = driver.findElement(By.xpath("(//td[@class='cart_price'])[1]/p")).getText();
+		return firstProductPrice;
+	}
+	public String verifyCartProducts4() {
+		String secondProductPrice = driver.findElement(By.xpath("(//td[@class='cart_price'])[2]/p")).getText();
+		return secondProductPrice;
+	}
+	public String verifyCartProducts5() {
+		String firstProductQuantity = driver.findElement(By.xpath("(//td[@class='cart_quantity'])[1]/button")).getText();
+		return firstProductQuantity;
+	}
+	public String verifyCartProducts6() {
+		String secondProductQuantity = driver.findElement(By.xpath("(//td[@class='cart_quantity'])[2]/button")).getText();
+		return secondProductQuantity;
+	}
+	public String verifyCartProducts7() {
+		String firstProductTotalPrice = driver.findElement(By.xpath("(//td[@class='cart_total'])[1]/p")).getText();
+		return firstProductTotalPrice;
+	}
+	public String verifyCartProducts8() {
+		String secondProductTotalPrice = driver.findElement(By.xpath("(//td[@class='cart_total'])[2]/p")).getText();
+		return secondProductTotalPrice;
+	}
+
 	public void clickViewPdt() {
 		WebElement adCloseButton = new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.elementToBeClickable(viewpdt));

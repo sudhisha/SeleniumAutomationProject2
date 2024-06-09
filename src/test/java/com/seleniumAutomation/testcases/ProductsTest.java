@@ -11,6 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 
@@ -53,19 +54,19 @@ public class ProductsTest {
 	
 	@Test
 	public void productsAddToCart() {
-		ArrayList<String> ar2 = pd.click_firstProduct();
+		pd.clickPrdLink();
+		pd.click_firstProduct();
 		pd.clickContinue();
-		ArrayList<String> ar1 = pd.click_secondProduct();
+		pd.click_secondProduct();
 		pd.viewCart();
-		ArrayList<String> ar= pd.verifyCartProducts();
-//		Assert.assertEquals(ar2.get(0),ar.get(0));
-//		Assert.assertEquals(ar1.get(0),ar.get(1));
-//		Assert.assertEquals(ar1.get(1),ar.get(2));
-//		Assert.assertEquals(ar2.get(1),ar.get(5));
-//		Assert.assertEquals("1",ar.get(3));
-//		Assert.assertEquals("1",ar.get(6));
-//		Assert.assertEquals("Rs. 400",ar.get(4));
-//		Assert.assertEquals("Rs. 500",ar.get(7));
+		pd.verifyCartProducts1();
+		pd.verifyCartProducts2();
+		assertEquals(pd.verifyCartProducts3(), "Rs. 500", "First product price is incorrect");
+		assertEquals(pd.verifyCartProducts4(), "Rs. 400", "Second product price is incorrect");
+		assertEquals(pd.verifyCartProducts5(), "1", "First product quantity is incorrect");
+		assertEquals(pd.verifyCartProducts6(), "1", "Second product quantity is incorrect");
+		assertEquals(pd.verifyCartProducts7(), "Rs. 500", "First product total price is incorrect");
+		assertEquals(pd.verifyCartProducts8(), "Rs. 400", "Second product total price is incorrect");
 	}
 	
 	@Test
@@ -76,14 +77,14 @@ public class ProductsTest {
 		pd.clickAddToCart();
 		pd.clickViewCart();
 		String qty = pd.verifyCartQty();
-		Assert.assertEquals("4", qty);
+		assertEquals("4", qty);
 	}
 	
 	@Test
 	public void placeOrderRegisterWhileCheckout() {
 		productsAddToCart();
 		pd.clickCart();
-		Assert.assertEquals(pd.getCartPage(),"https://automationexercise.com/view_cart");
+		assertEquals(pd.getCartPage(),"https://automationexercise.com/view_cart");
 		pd.clickProceedToCheckOut();
 		pd.clickRegLog();
 		pd.enterName("Nidhi");
@@ -118,7 +119,7 @@ public class ProductsTest {
 		pd.verifyLoggedIn();
 		productsAddToCart();
 		pd.clickCart();
-		Assert.assertEquals(pd.getCartPage(),"https://automationexercise.com/view_cart");
+		assertEquals(pd.getCartPage(),"https://automationexercise.com/view_cart");
 		pd.clickProceedToCheckOut();
 		pd.enterDesc();
 		pd.clickPlaceOrder();
@@ -143,7 +144,7 @@ public class ProductsTest {
 		assertTrue(pd.verifyLoggedIn());
 		productsAddToCart();
 		pd.clickCart();
-		Assert.assertEquals(pd.getCartPage(),"https://automationexercise.com/view_cart");
+		assertEquals(pd.getCartPage(),"https://automationexercise.com/view_cart");
 		pd.clickProceedToCheckOut();
 		pd.enterDesc();
 		pd.clickPlaceOrder();
@@ -163,7 +164,7 @@ public class ProductsTest {
 	public void removeProducts_cart() {
 		productsAddToCart();
 		pd.clickCart();
-		Assert.assertEquals(pd.getCartPage(),"https://automationexercise.com/view_cart");
+		assertEquals(pd.getCartPage(),"https://automationexercise.com/view_cart");
 		pd.clickXButton();
 //		Assert.assertFalse(pd.verifyPrdRemoval());
 	}
@@ -173,11 +174,11 @@ public class ProductsTest {
 		assertTrue(pd.verifyCategory());
 		pd.clickWomen();
 		pd.clickDress();
-		Assert.assertEquals(pd.getCartPage(),"https://automationexercise.com/category_products/1");
+		assertEquals(pd.getCartPage(),"https://automationexercise.com/category_products/1");
 		assertTrue(pd.verifyCategoryheading());
 		pd.clickMen();
 		pd.clicktshirt();
-		Assert.assertEquals(pd.verifyCategoryheading2(),"https://automationexercise.com/category_products/3");
+		assertEquals(pd.verifyCategoryheading2(),"https://automationexercise.com/category_products/3");
 	}
 
 	@Test
@@ -197,7 +198,7 @@ public class ProductsTest {
 		pd.clickPrdLink();
 		String prdct = "shirt";
 		String prdct1 = "Shirt";
-		Assert.assertEquals(pd.verifyBrandspage(),"https://automationexercise.com/products");
+		assertEquals(pd.verifyBrandspage(),"https://automationexercise.com/products");
 		pd.enterSearchInput(prdct);
 		pd.click_search();
 		assertTrue(pd.verifySearched_Products());
@@ -213,7 +214,7 @@ public class ProductsTest {
 	@Test
 	public void add_review_Products() {
 		pd.clickPrdLink();
-		Assert.assertEquals(pd.verifyBrandspage(),"https://automationexercise.com/products");
+		assertEquals(pd.verifyBrandspage(),"https://automationexercise.com/products");
 		pd.clickViewPdt();
 		assertTrue(pd.verifyWriteReviewHead());
 		pd.EnterReviewName("Nidhi");
