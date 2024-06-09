@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.seleniumAutomation.Pages.Products;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertTrue;
 
 
 public class ProductsTest {
@@ -28,25 +30,25 @@ public class ProductsTest {
 	public void verifyProducts() {
 		pd.clickPrdLink();
 		pd.closeAdIfPresent();
-		Assert.assertTrue(pd.getPrdPage().contains("products"));
+		assertTrue(pd.getPrdPage().contains("products"));
 		pd.click_viewPrdct();
-		Assert.assertTrue(pd.getPrdPage().contains("product_details"));
-		Assert.assertTrue(pd.verifyPrdDetails_name());
-		Assert.assertTrue(pd.verifyPrdDetails_cat());
-		Assert.assertTrue(pd.verifyPrdDetails_price());
-		Assert.assertTrue(pd.verifyPrdDetails_avail());
-		Assert.assertTrue(pd.verifyPrdDetails_condn());
-		Assert.assertTrue(pd.verifyPrdDetails_brand());
+		assertTrue(pd.getPrdPage().contains("product_details"));
+		assertTrue(pd.verifyPrdDetails_name());
+		assertTrue(pd.verifyPrdDetails_cat());
+		assertTrue(pd.verifyPrdDetails_price());
+		assertTrue(pd.verifyPrdDetails_avail());
+		assertTrue(pd.verifyPrdDetails_condn());
+		assertTrue(pd.verifyPrdDetails_brand());
 	}
 	
 	@Test
 	public void searchProducts() {
 		pd.clickPrdLink();
 		pd.closeAdIfPresent();
-		Assert.assertTrue(pd.getPrdPage().contains("products"));
+		assertTrue(pd.getPrdPage().contains("products"));
 		pd.enterSearch();
 		pd.click_search();
-		Assert.assertTrue(pd.verifySearched_Products());
+		assertTrue(pd.verifySearched_Products());
 	}
 	
 	@Test
@@ -69,7 +71,7 @@ public class ProductsTest {
 	@Test
 	public void verifyPproductQty() {
 		pd.clickViewPdt();
-		Assert.assertTrue(pd.getPrdPage().contains("product_details"));
+		assertTrue(pd.getPrdPage().contains("product_details"));
 		pd.enterQuantity();
 		pd.clickAddToCart();
 		pd.clickViewCart();
@@ -87,7 +89,7 @@ public class ProductsTest {
 		pd.enterName("Nidhi");
 		pd.enterEmail("nidhi123@gmail.com");
 		pd.clickSignUpButton();
-		Assert.assertTrue(pd.fillDetails());
+		assertTrue(pd.fillDetails());
 		pd.clickCart();
 		pd.clickProceedToCheckOut();
 		pd.enterDesc();
@@ -100,7 +102,7 @@ public class ProductsTest {
 		pd.clickPlaceOrderButton();
 		pd.verifySuccessMsg();
 		pd.clickdelAccount();
-		Assert.assertTrue(pd.verifyDelMsg());
+		assertTrue(pd.verifyDelMsg());
 		pd.clickdelAccountContinue();
 	}
 	
@@ -110,7 +112,7 @@ public class ProductsTest {
 		pd.enterName("Nidhi");
 		pd.enterEmail("nidhi123@gmail.com");
 		pd.clickSignUpButton();
-		Assert.assertTrue(pd.fillDetails());
+		assertTrue(pd.fillDetails());
 		pd.verifySuccessMsgAccount();
 		pd.clickContinueAccout();
 		pd.verifyLoggedIn();
@@ -128,7 +130,7 @@ public class ProductsTest {
 		pd.clickPlaceOrderButton();
 		pd.verifySuccessMsg();
 		pd.clickdelAccount();
-		Assert.assertTrue(pd.verifyDelMsg());
+		assertTrue(pd.verifyDelMsg());
 		pd.clickdelAccountContinue();
 	}
 	
@@ -138,7 +140,7 @@ public class ProductsTest {
 		pd.enterlogEmail("nidhi123@gmail.com");
 		pd.enterPwd("nidhi123");
 		pd.clickLoginButton();
-		Assert.assertTrue(pd.verifyLoggedIn());
+		assertTrue(pd.verifyLoggedIn());
 		productsAddToCart();
 		pd.clickCart();
 		Assert.assertEquals(pd.getCartPage(),"https://automationexercise.com/view_cart");
@@ -153,7 +155,7 @@ public class ProductsTest {
 		pd.clickPlaceOrderButton();
 		pd.verifySuccessMsg();
 		pd.clickdelAccount();
-		Assert.assertTrue(pd.verifyDelMsg());
+		assertTrue(pd.verifyDelMsg());
 		pd.clickdelAccountContinue();
 	}
 	
@@ -168,11 +170,11 @@ public class ProductsTest {
 	
 	@Test
 	public void viewCategoryProducts() {
-		Assert.assertTrue(pd.verifyCategory());
+		assertTrue(pd.verifyCategory());
 		pd.clickWomen();
 		pd.clickDress();
 		Assert.assertEquals(pd.getCartPage(),"https://automationexercise.com/category_products/1");
-		Assert.assertTrue(pd.verifyCategoryheading());
+		assertTrue(pd.verifyCategoryheading());
 		pd.clickMen();
 		pd.clicktshirt();
 		Assert.assertEquals(pd.verifyCategoryheading2(),"https://automationexercise.com/category_products/3");
@@ -181,13 +183,13 @@ public class ProductsTest {
 	@Test
 	public void view_Cart_BrandProducts() {
 		pd.clickPrdLink();
-		Assert.assertTrue(pd.verifyBrandsheading());
+		assertTrue(pd.verifyBrandsheading());
 		pd.clickpolo();
-		Assert.assertTrue(pd.verifyBrandsproducts());
-		Assert.assertTrue(pd.verifyBrandspage().contains("brand_products"));
+		assertTrue(pd.verifyBrandsproducts());
+		assertTrue(pd.verifyBrandspage().contains("brand_products"));
 		pd.clickHM();
-		Assert.assertTrue(pd.verifyBrandspage().contains("brand_products"));
-		Assert.assertTrue(pd.verifyBrandsproducts1());
+		assertTrue(pd.verifyBrandspage().contains("brand_products"));
+		assertTrue(pd.verifyBrandsproducts1());
 	}
 
 	@Test
@@ -198,7 +200,7 @@ public class ProductsTest {
 		Assert.assertEquals(pd.verifyBrandspage(),"https://automationexercise.com/products");
 		pd.enterSearchInput(prdct);
 		pd.click_search();
-		Assert.assertTrue(pd.verifySearched_Products());
+		assertTrue(pd.verifySearched_Products());
 		pd.verifyProductsInPage(prdct,prdct1);
 		pd.clickCart();
 		pd.clickSignUpLink();
@@ -213,18 +215,18 @@ public class ProductsTest {
 		pd.clickPrdLink();
 		Assert.assertEquals(pd.verifyBrandspage(),"https://automationexercise.com/products");
 		pd.clickViewPdt();
-		Assert.assertTrue(pd.verifyWriteReviewHead());
+		assertTrue(pd.verifyWriteReviewHead());
 		pd.EnterReviewName("Nidhi");
 		pd.EnterReviewEmail("nidhi123@gmail.com");
 		pd.EnterReviewReview("Good Product...");
 		pd.clickReviewButton();
-		Assert.assertTrue(pd.verifySuccessReviewMsg());
+		assertTrue(pd.verifySuccessReviewMsg());
 	}
 
 	@Test
 	public void Add_to_cart_from_Recommended_items() {
 		pd.scrolldown();
-		Assert.assertTrue(pd.verifyRecommendItems());
+		assertTrue(pd.verifyRecommendItems());
 		String c_pname = pd.getAddcartItemName();
 		pd.clickAddtocartRecommended();
 		pd.clickViewcartRecommended();
@@ -233,11 +235,31 @@ public class ProductsTest {
 	}
 
 
+
+	@Test
+	public void verifyScrollUp_and_Down() throws InterruptedException {
+		pd.scrolldown();
+		Thread.sleep(2000);
+		assertTrue(pd.verifySubscription(), "'SUBSCRIPTION' section is not visible");
+		pd.scrollUp();
+		Thread.sleep(2000); // Wait for the page to scroll up
+		assertTrue(pd.verifyPracticeWebsite(), "'Full-Fledged practice website for Automation Engineers' text is not visible");
+	}
+	@Test
+	public void verifyScrollUp_and_Down_withoutArrow() throws InterruptedException {
+		pd.scrolldown();
+		Thread.sleep(2000);
+		assertTrue(pd.verifySubscription(), "'SUBSCRIPTION' section is not visible");
+		pd.scrollUp_JS();
+		Thread.sleep(2000);
+		assertTrue(pd.verifyPracticeWebsite(), "'Full-Fledged practice website for Automation Engineers' text is not visible");
+	}
 	@AfterMethod
 	public void closeDriver() {
 		pd.tearDown();
 	}
 }
+
 
 
 

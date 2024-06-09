@@ -476,6 +476,19 @@ public class Products extends AutomationBase {
 	public String getViewcartItemName() {
 		return driver.findElement(rec_viewcart_pname).getText();
 	}
+	public boolean verifySubscription() {
+		return driver.findElement(By.xpath("//h2[text()='Subscription']")).isDisplayed();
+	}
+	public void scrollUp() {
+		driver.findElement(By.xpath("//i[@class='fa fa-angle-up']")).click();
+	}
+	public boolean verifyPracticeWebsite() {
+		return  driver.findElement(By.xpath("//h2[contains(text(), 'Full-Fledged practice website for Automation Engineers')]")).isDisplayed();
+	}
+	public void scrollUp_JS() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollTo(0, 0);");
+	}
 }
 
 
