@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.seleniumAutomation.Base.AutomationBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -117,7 +118,11 @@ public class Products extends AutomationBase {
 	By review = By.id("review");
 	By button_review = By.id("button-review");
 	By rev_msg = By.xpath(".//span[text()=\"Thank you for your review.\"]");
-//	By rev_name = By.id("name");
+	By rec_items = By.xpath(".//h2[text()=\"recommended items\"]");
+	By rec_addtocart = RelativeLocator.with(By.xpath(".//a[text()=\"Add to cart\"]")).below(rec_items);
+	By rec_viewcart = By.xpath(".//u[text()=\"View Cart\"]");
+	By rec_addtocart_pname = RelativeLocator.with(By.tagName("p")).below(rec_items);
+	By rec_viewcart_pname = By.xpath(".//td[@class=\"cart_description\"]/h4/a");
 
 	public void closeAdIfPresent() {
         try {
@@ -452,7 +457,25 @@ public class Products extends AutomationBase {
 	public boolean verifySuccessReviewMsg() {
 		return driver.findElement(rev_msg).isDisplayed();
 	}
-
+	public void scrolldown() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+	}
+	public boolean verifyRecommendItems() {
+		return driver.findElement(rec_items).isDisplayed();
+	}
+	public void clickAddtocartRecommended() {
+		driver.findElement(rec_addtocart).click();
+	}
+	public void clickViewcartRecommended() {
+		driver.findElement(rec_viewcart).click();
+	}
+	public String getAddcartItemName() {
+		return driver.findElement(rec_addtocart_pname).getText();
+	}
+	public String getViewcartItemName() {
+		return driver.findElement(rec_viewcart_pname).getText();
+	}
 }
 
 

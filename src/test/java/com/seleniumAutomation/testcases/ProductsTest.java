@@ -221,6 +221,18 @@ public class ProductsTest {
 		Assert.assertTrue(pd.verifySuccessReviewMsg());
 	}
 
+	@Test
+	public void Add_to_cart_from_Recommended_items() {
+		pd.scrolldown();
+		Assert.assertTrue(pd.verifyRecommendItems());
+		String c_pname = pd.getAddcartItemName();
+		pd.clickAddtocartRecommended();
+		pd.clickViewcartRecommended();
+		String vc_pname = pd.getViewcartItemName();
+		Assert.assertEquals(c_pname,vc_pname);
+	}
+
+
 	@AfterMethod
 	public void closeDriver() {
 		pd.tearDown();
